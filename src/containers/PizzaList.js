@@ -1,6 +1,31 @@
-import React, { Component } from "react";
-import Pizza from "../components/Pizza";
+import React, { Component, useState, useEffect} from "react";
+ import Pizza from "../components/Pizza";
 function PizzaList() {
+  const [pizzas, setPizzas] = useState([])
+
+  function fetchPizza () {
+
+  fetch('http://localhost:3000/pizzas')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(json){
+     console.log (json)
+     setPizzas(json)
+  })
+
+  
+ 
+  }
+
+  const usersPizzas = () => pizzas.map((pizza) => <Pizza {...pizza}/>  )
+  console.log(usersPizzas);
+  // setPizzas(usersPizzas)
+
+useEffect(()=>{
+  fetchPizza()
+},[])
+
   return (
     <table className="table table-striped">
       <thead>
@@ -12,8 +37,8 @@ function PizzaList() {
         </tr>
       </thead>
       <tbody>
-        {
-          //render Pizza here
+          {       
+          usersPizzas()
         }
       </tbody>
     </table>
