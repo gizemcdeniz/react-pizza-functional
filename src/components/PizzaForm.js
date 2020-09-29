@@ -1,21 +1,41 @@
 import React, { Component, useState, useEffect} from "react";
 
-
-
 const PizzaForm = ({ setPizzas }) => {
   const [topping, setTopping] = React.useState("");
   const [size, setSize] = React.useState("small");
   const [vegetarian, setVegetarian] = React.useState(false);
 
-  console.log(topping)
-  console.log(size)
-  console.log(vegetarian)
+  // const changeText = (text) => setTopping(setPizzas);
+
+  // console.log(topping)
+  // console.log(size)
+  // console.log(vegetarian)
 
   const handleSubmit = () => {
-    {topping}
-    {size}
-    {vegetarian}
+    // {pizza.topping}
+    // {pizza.size}
+    // {pizza.vegetarian}
+    addingPizza()
   }
+
+  const addingPizza = async () => {
+    const response = await fetch('http://localhost:3000/pizzas', {
+      method: 'POST',
+      body: {id: 11,
+            topping: topping,
+            size: size, 
+            vegetarian: vegetarian 
+          }, // string or object
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const myJson = await response.json(); //extract JSON from the http response
+    console.log(myJson)
+    // do something with myJson
+  }
+
+
 
   return(
       <div className="form-row">
@@ -48,7 +68,7 @@ const PizzaForm = ({ setPizzas }) => {
           </div>
         </div>
         <div className="col">
-          <button type="submit" className="btn btn-success" onClick={handleSubmit}>Submit</button>
+          <button type="submit" className="btn btn-success"  onClick={() => handleSubmit()} >Submit</button>
         </div>
       </div>
 
