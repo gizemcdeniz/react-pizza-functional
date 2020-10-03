@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect} from "react";
  import Pizza from "../components/Pizza";
-function PizzaList() {
+ 
+function PizzaList({ setEditedPizza }) {
   const [pizzas, setPizzas] = useState([])
 
   function fetchPizza () {
@@ -18,7 +19,7 @@ function PizzaList() {
  
   }
 
-  const usersPizzas = () => pizzas.map((pizza) => <Pizza {...pizza}/>  )
+  const usersPizzas = () => pizzas.map((pizza) => <Pizza pizza={pizza} setEditedPizza={}/>  )
   console.log(usersPizzas);
   // setPizzas(usersPizzas)
 

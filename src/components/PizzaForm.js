@@ -1,9 +1,12 @@
-import React, { Component, useState, useEffect} from "react";
+import React, { Component, useState } from "react";
 
 const PizzaForm = ({ setPizzas }) => {
   const [topping, setTopping] = React.useState("");
   const [size, setSize] = React.useState("small");
   const [vegetarian, setVegetarian] = React.useState(false);
+
+  // const [newPizza, setNewPizza] = React.useState({topping: "", size: "small", vegetarian: "false" }); 
+ 
 
   // const changeText = (text) => setTopping(setPizzas);
 
@@ -11,30 +14,38 @@ const PizzaForm = ({ setPizzas }) => {
   // console.log(size)
   // console.log(vegetarian)
 
-  const handleSubmit = () => {
+  
+  const handleSubmit = (e) => {
+    /*
+    console.log(e.target);
+    const value= e.target.value;
+    setNewPizza({...newPizza, [e.target.name]: value});
+    */
     // {pizza.topping}
     // {pizza.size}
     // {pizza.vegetarian}
     addingPizza()
   }
 
+
   const addingPizza = async () => {
     const response = await fetch('http://localhost:3000/pizzas', {
       method: 'POST',
-      body: {id: 11,
+      body: JSON.stringify({
+        id: 11,
             topping: topping,
             size: size, 
-            vegetarian: vegetarian 
-          }, // string or object
+            vegetarian: vegetarian
+          }), // string or object
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     });
     const myJson = await response.json(); //extract JSON from the http response
     console.log(myJson)
     // do something with myJson
   }
-
 
 
   return(
@@ -75,4 +86,4 @@ const PizzaForm = ({ setPizzas }) => {
   )
 }
 
-export default PizzaForm
+export default PizzaForm;
